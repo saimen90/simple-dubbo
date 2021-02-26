@@ -26,7 +26,6 @@ public class HttpServerHandler {
          */
     public void handler(HttpServletRequest req, HttpServletResponse resp) {
         System.out.printf("服务处理");
-        System.out.printf(req.getRequestURI());
         try {
             Invocation invocation = JSONObject.parseObject(req.getInputStream(), Invocation.class);
             // 根据接口名获取实现类( 修改： 缓存 + zookeper )
