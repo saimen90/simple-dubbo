@@ -9,4 +9,6 @@ public interface ComputeService {
     public int sum(Integer a, Integer b);
 
     public int multiply(Integer a, Integer b);
+
+    public String say(String msg);
 }

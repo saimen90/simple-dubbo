@@ -59,7 +59,7 @@ public class HttpClient {
             response = httpClient.execute(httpPost);
             // 从响应模型中获取响应实体
             HttpEntity responseEntity = response.getEntity();
-            System.out.println("响应状态为:" + response.getStatusLine());
+            System.out.println("\n响应状态为:" + response.getStatusLine()+"\n");
             if (responseEntity != null) {
                 // System.out.println("响应内容长度为:" + responseEntity.getContentLength());
                 // System.out.println("响应内容为:" + EntityUtils.toString(responseEntity));

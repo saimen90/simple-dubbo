@@ -16,4 +16,9 @@ public class ComputeServiceImpl implements ComputeService {
     public int multiply(Integer a, Integer b) {
         return a * b;
     }
+
+    // say
+    public String say(String msg) {
+        return "服务提供者返回：" + "你好！" + msg;
+    }
 }
