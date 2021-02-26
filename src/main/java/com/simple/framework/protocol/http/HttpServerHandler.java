@@ -3,10 +3,14 @@ package com.simple.framework.protocol.http;
 
 import com.alibaba.fastjson.JSONObject;
 import com.simple.framework.Invocation;
+import com.simple.framework.register.LocalRegister;
+import com.simple.framework.until.HttpResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * HttpServer 服务
@@ -25,8 +29,20 @@ public class HttpServerHandler {
         System.out.printf(req.getRequestURI());
         try {
             Invocation invocation = JSONObject.parseObject(req.getInputStream(), Invocation.class);
-            
-        } catch (IOException e) {
+            // 根据接口名获取实现类
+            Class implClass = LocalRegister.get(invocation.getInterfaceName());
+            Method method = implClass.getMethod(invocation.getMethodName(), invocation.getParamTypes());
+            // 执行方法
+            Object result = method.invoke(implClass.newInstance(), invocation.getParams());
+            // 返回执行结果
+            HttpResponse.write(resp, result);
+        } catch (IOException | NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
             e.printStackTrace();
         }
     }
