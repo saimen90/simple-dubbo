@@ -29,7 +29,7 @@ public class HttpServerHandler {
         System.out.printf(req.getRequestURI());
         try {
             Invocation invocation = JSONObject.parseObject(req.getInputStream(), Invocation.class);
-            // 根据接口名获取实现类
+            // 根据接口名获取实现类( 修改： 缓存 + zookeper )
             Class implClass = LocalRegister.get(invocation.getInterfaceName());
             Method method = implClass.getMethod(invocation.getMethodName(), invocation.getParamTypes());
             // 执行方法
