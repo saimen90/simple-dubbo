@@ -35,13 +35,16 @@ public class HttpClient {
 
     /**
      * http 发送post请求
+     *
      * @param invocation
      * @return
      */
     public String send(Invocation invocation) {
+
+        String result = "";
         // 获得Http客户端(可以理解为:你得先有一个浏览器;注意:实际上HttpClient与浏览器是不一样的)
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        String uri = this.scheme + ":" + this.hostname + ":" + this.port;
+        String uri = this.scheme + "://" + this.hostname + ":" + this.port;
         // 创建Post请求
         HttpPost httpPost = new HttpPost(uri);
         String jsonString = JSON.toJSONString(invocation);
@@ -58,10 +61,10 @@ public class HttpClient {
             HttpEntity responseEntity = response.getEntity();
             System.out.println("响应状态为:" + response.getStatusLine());
             if (responseEntity != null) {
-                System.out.println("响应内容长度为:" + responseEntity.getContentLength());
-                System.out.println("响应内容为:" + EntityUtils.toString(responseEntity));
+                // System.out.println("响应内容长度为:" + responseEntity.getContentLength());
+                // System.out.println("响应内容为:" + EntityUtils.toString(responseEntity));
+                result = EntityUtils.toString(responseEntity);
             }
-            return  EntityUtils.toString(responseEntity);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (ParseException e) {
@@ -81,7 +84,7 @@ public class HttpClient {
                 e.printStackTrace();
             }
         }
-        return "";
+        return result;
     }
 
 }

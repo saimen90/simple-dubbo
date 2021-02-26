@@ -16,10 +16,10 @@ public class ConsumerMain {
                 ComputeService.class.getName(),
                 "sum",
                 new Class[]{Integer.class, Integer.class},
-                new Object[]{11, 6}
+                new Object[]{6, 6}
         );
         String send = httpClient.send(invocation);
-        System.out.printf("消费者 - ConsumerMain");
-        System.out.printf(send);
+        System.out.printf("消费者 - ConsumerMain\n");
+        System.out.printf("计算结果："+send);
     }
 }
